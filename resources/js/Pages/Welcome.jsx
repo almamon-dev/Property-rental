@@ -558,7 +558,9 @@ function ProfessionalCard({ property }) {
 
             <Link href={route('properties.show', property.slug || property.id.toString())} className="relative overflow-hidden aspect-[16/11] bg-gray-50 rounded-t-2xl">
                 <img 
-                    src={property.images && property.images.length > 0 ? `/storage/${property.images[0].image_path}` : 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800'} 
+                    src={property.images && property.images.length > 0 
+                        ? (property.images[0].image_path.startsWith('http') ? property.images[0].image_path : `/storage/${property.images[0].image_path}`)
+                        : 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=800'} 
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                     alt={property.title}
                 />

@@ -8,6 +8,7 @@ use Inertia\Inertia;
 Route::get('/', [App\Http\Controllers\PropertyController::class, 'home'])->name('welcome');
 
 Route::get('/properties', [App\Http\Controllers\PropertyController::class, 'index'])->name('properties.index');
+Route::get('/map-search', [App\Http\Controllers\PropertyController::class, 'map'])->name('properties.map');
 Route::get('/properties/{slug}', [App\Http\Controllers\PropertyController::class, 'show'])->name('properties.show');
 Route::get('/api/locations/suggest', [App\Http\Controllers\PropertyController::class, 'suggestLocations'])->name('locations.suggest');
 

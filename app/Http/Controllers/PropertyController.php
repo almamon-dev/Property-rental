@@ -124,6 +124,29 @@ class PropertyController extends Controller
         ]);
     }
 
+    public function map(Request $request)
+    {
+        $query = Property::with(['category', 'images', 'user'])
+            ->where('status', 'active');
+
+        // Reuse filtering logic or keep it simple for map
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+        
+        if ($request->filled('type')) {
+            $query->where('purpose', $request->type);
+        }
+
+        $properties = $query->get(); // Load all for map markers
+
+        return Inertia::render('Properties/MapSearch', [
+            'properties' => $properties,
+            'categories' => Category::whereNull('parent_id')->where('is_active', true)->get(),
+            'filters' => $request->only(['category', 'type'])
+        ]);
+    }
+
     public function suggestLocations(Request $request)
     {
         $query = $request->get('query');
